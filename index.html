@@ -947,7 +947,7 @@
       height: 100vh;
       z-index: 0;
       pointer-events: none;
-      opacity: 0.06;
+      opacity: 0.4;
     }
 
     /* LANDSCAPE MOBILE */
@@ -1445,6 +1445,57 @@
         </button>
       </div>
     </div>
+
+    <!-- LangFlow: Onboarding Buddy System -->
+    <div class="project-card-detail reveal">
+      <div class="project-detail-header">
+        <div class="project-detail-icon" style="background:rgba(168,85,247,0.15);color:#a855f7;">
+          <i class="fas fa-diagram-project"></i>
+        </div>
+        <div class="project-detail-meta">
+          <div class="project-detail-title">Onboarding Buddy System: AI Assistant Berbasis RAG untuk Onboarding Karyawan Baru</div>
+          <div class="project-detail-sub">Hacktiv8 Capstone Project</div>
+          <div class="project-detail-company">Hacktiv8 · AI Engineering Program 2026</div>
+        </div>
+      </div>
+
+      <div class="project-detail-section">
+        <div class="project-detail-label">Features</div>
+        <ul class="project-features">
+          <li>Real-time question answering for new employees based on internal HR documents</li>
+          <li>Retrieval-Augmented Generation (RAG) pipeline connecting language model with company knowledge base</li>
+          <li>Custom prompt engineering with grounding rules to prevent AI hallucination</li>
+          <li>Semantic document search using vector database for accurate context retrieval</li>
+          <li>Multi-turn chat memory to maintain conversation context</li>
+        </ul>
+      </div>
+
+      <div class="project-detail-section">
+        <div class="project-detail-label">Technologies</div>
+        <div class="project-tech-stack">
+          <span class="project-tech-item">Langflow</span>
+          <span class="project-tech-item">Astra DB</span>
+          <span class="project-tech-item">Google Generative AI Embeddings</span>
+          <span class="project-tech-item">RAG</span>
+          <span class="project-tech-item">Prompt Engineering</span>
+          <span class="project-tech-item">Vector Database</span>
+        </div>
+      </div>
+
+      <div class="project-detail-section">
+        <div class="project-detail-label">More Information</div>
+        <div class="project-impact">
+          <i class="fas fa-graduation-cap" style="margin-right:6px"></i>
+          This project was developed as a capstone submission for the <strong>Hacktiv8 AI Engineering program</strong> using Langflow, a visual flow builder for AI applications. The system implements a Retrieval-Augmented Generation (RAG) architecture connected to a vector database (Astra DB) containing company HR documents, enabling new employees to get instant, accurate answers grounded in official company sources instead of generic AI responses — helping accelerate onboarding and reduce repetitive queries to the HR team.
+        </div>
+      </div>
+
+      <div class="project-detail-section">
+        <button onclick="openGallery(['projects/Flow.jpeg', 'projects/Prompt%20Template.jpeg', 'projects/Playground.jpeg'], 'Onboarding Buddy System — Hacktiv8 Capstone Project')" class="project-screenshot-link">
+          <i class="fas fa-images"></i> View Gallery (3 images)
+        </button>
+      </div>
+    </div>
   </div>
 
 </section>
@@ -1523,6 +1574,20 @@
         <div class="cert-issuer">ICSIT (International Conference on Computer Science and Information Technology)</div>
         <div class="cert-desc">Participant Certificate — organized by ICSIT 2025</div>
         <button onclick="openModal('certifications/ICSIT.jpeg', 'ICSIT 2025 — Smart Water Quality Monitoring')" class="cert-img-link">
+          <i class="fas fa-expand"></i> View Certificate
+        </button>
+      </div>
+    </div>
+
+    <div class="cert-card reveal">
+      <div class="cert-icon" style="background:rgba(55,118,171,0.15);color:#3776AB;">
+        <i class="fab fa-python"></i>
+      </div>
+      <div class="cert-body">
+        <div class="cert-title">Getting Started with Python Programming — Dicoding</div>
+        <div class="cert-issuer">Dicoding Indonesia (Authorized Google Developers Training Partner)</div>
+        <div class="cert-desc">Python programming fundamentals course covering data structures, control flow, OOP, unit testing, and popular libraries — 60 hours, 2026</div>
+        <button onclick="openModal('certifications/Python.jpg', 'Getting Started with Python Programming — Dicoding')" class="cert-img-link">
           <i class="fas fa-expand"></i> View Certificate
         </button>
       </div>
@@ -1758,23 +1823,46 @@
   function initMatrix() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-    const cols = Math.floor(canvas.width / 14);
+    const cols = Math.floor(canvas.width / 15);
     drops = Array(cols).fill(1);
   }
 
   function drawMatrix() {
-    ctx.fillStyle = 'rgba(10, 14, 26, 0.05)';
+    ctx.fillStyle = 'rgba(10, 14, 26, 0.08)';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = '#00ff41';
-    ctx.font = '14px monospace';
+    ctx.font = '15px monospace';
+    ctx.shadowColor = '#00ff41';
+    ctx.shadowBlur = 10;
     for (let i = 0; i < drops.length; i++) {
       const char = String.fromCharCode(0x30A0 + Math.random() * 96);
-      ctx.fillText(char, i * 14, drops[i] * 14);
-      if (drops[i] * 14 > canvas.height && Math.random() > 0.975) {
+      const x = i * 15;
+      const y = drops[i] * 15;
+
+      // Kepala tetesan: hijau neon terang, sesekali putih berkilau
+      if (Math.random() > 0.97) {
+        ctx.fillStyle = '#eaffea';
+        ctx.shadowBlur = 16;
+      } else {
+        ctx.fillStyle = '#00ff41';
+        ctx.shadowBlur = 8;
+      }
+      ctx.fillText(char, x, y);
+
+      // Ekor redup membentuk jejak di atas kepala
+      if (y > 30) {
+        ctx.fillStyle = 'rgba(0, 255, 65, 0.35)';
+        ctx.shadowBlur = 0;
+        ctx.fillText(char, x, y - 15);
+        ctx.fillStyle = 'rgba(0, 255, 65, 0.15)';
+        ctx.fillText(char, x, y - 30);
+      }
+
+      if (y > canvas.height && Math.random() > 0.975) {
         drops[i] = 0;
       }
       drops[i]++;
     }
+    ctx.shadowBlur = 0;
   }
 
   initMatrix();
